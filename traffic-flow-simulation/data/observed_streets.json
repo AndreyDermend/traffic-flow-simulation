@@ -1,0 +1,14 @@
+[
+  {"name": "Lasalle 1", "queue_capacity": 29, "cars_per5min": 5, "control": "signal"},
+  {"name": "Lasalle 2", "queue_capacity": 29, "cars_per5min": 3, "control": "stop_sign"},
+  {"name": "Dale 3", "queue_capacity": 17, "cars_per5min": 3, "control": "stop_sign"},
+  {"name": "Farmington 1", "queue_capacity": 40, "cars_per5min": 13, "control": "signal"},
+  {"name": "Farmington 2", "queue_capacity": 42, "cars_per5min": 31, "control": "signal"},
+  {"name": "Brace 1", "queue_capacity": 43, "cars_per5min": 9, "control": "signal"},
+  {"name": "Brace 2", "queue_capacity": 43, "cars_per5min": 6, "control": "stop_sign"},
+  {"name": "Memorial 3", "queue_capacity": 21, "cars_per5min": 10, "control": "signal"},
+  {"name": "S Main 1", "queue_capacity": 54, "cars_per5min": 40, "control": "signal"},
+  {"name": "S Main 2", "queue_capacity": 54, "cars_per5min": 7, "control": "signal"},
+  {"name": "N Main 1", "queue_capacity": 9, "cars_per5min": 17, "control": "signal"},
+  {"name": "N Main 2", "queue_capacity": 9, "cars_per5min": 42, "control": "signal"}
+]

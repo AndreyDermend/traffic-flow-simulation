@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# C build artifacts
+sim-engine/bin/
+sim-engine/*.o
+sim-engine/src/*.o
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Frontend local overrides
+frontend/config.local.js
