@@ -1,6 +1,5 @@
-from __future__ import annotations
-
 from fastapi import FastAPI, HTTPException, Query
+from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
 
 from runner import run_simulation
@@ -25,7 +24,7 @@ def health():
 @app.get("/run-simulation")
 def run_simulation_endpoint(
     represented_seconds: int = Query(300, ge=60, le=7200),
-    seed: int | None = Query(None),
+    seed: Optional[int] = Query(None),
 ):
     try:
         return run_simulation(represented_seconds=represented_seconds, seed=seed)

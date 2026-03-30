@@ -8,6 +8,10 @@
   --accent-2: #22c55e;
   --danger: #ef4444;
   --warning: #f59e0b;
+  --road: #4b5563;
+  --road-edge: #94a3b8;
+  --car: #93c5fd;
+  --car-strong: #60a5fa;
   --shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
@@ -20,7 +24,7 @@ body {
 }
 
 .shell {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 32px 20px 56px;
 }
@@ -41,15 +45,16 @@ body {
   margin-bottom: 12px;
 }
 
-h1, h2 {
+h1, h2, h3 {
   margin: 0 0 10px;
   line-height: 1.05;
 }
 
 h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); }
 h2 { font-size: 1.35rem; }
+h3 { font-size: 1rem; }
 
-.lede, .muted, .status {
+.lede, .muted, .status, .details-list dd, .process-card p {
   color: var(--muted);
   line-height: 1.6;
 }
@@ -57,7 +62,7 @@ h2 { font-size: 1.35rem; }
 .hero-card,
 .panel,
 .summary-card,
-.street-card {
+.process-card {
   background: var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: 24px;
@@ -106,6 +111,12 @@ button {
   cursor: pointer;
 }
 button:hover { filter: brightness(1.05); }
+.secondary-btn {
+  width: auto;
+  min-width: 112px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+}
 
 .summary-grid {
   display: grid;
@@ -113,11 +124,8 @@ button:hover { filter: brightness(1.05); }
   gap: 16px;
   margin-bottom: 22px;
 }
-.summary-card {
-  padding: 20px;
-}
+.summary-card { padding: 20px; }
 .summary-card h3 {
-  margin: 0;
   color: var(--muted);
   font-size: 0.85rem;
   text-transform: uppercase;
@@ -125,16 +133,22 @@ button:hover { filter: brightness(1.05); }
 }
 .summary-card p {
   margin: 12px 0 0;
-  font-size: 1.7rem;
+  font-size: 1.65rem;
   font-weight: 800;
 }
 
-.playback-header {
+.playback-header,
+.scene-header {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   align-items: center;
   margin-bottom: 16px;
+}
+.playback-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 .tick-readout {
   font-weight: 700;
@@ -143,57 +157,174 @@ button:hover { filter: brightness(1.05); }
 .slider-wrap { display: block; }
 input[type="range"] { padding: 0; }
 
-.street-grid {
+.scene-layout {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+  margin-top: 22px;
 }
-.street-card {
-  padding: 18px;
+.scene-panel { min-height: 680px; }
+.scene-wrap {
+  background: linear-gradient(180deg, rgba(9, 16, 33, 0.85), rgba(9, 16, 33, 0.65));
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 20px;
+  padding: 12px;
+  overflow: hidden;
 }
-.street-header {
+#networkScene {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.scene-legend {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.street-name {
-  font-weight: 800;
-}
-.street-meta {
-  font-size: 0.92rem;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.9rem;
   color: var(--muted);
 }
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.dot-green { background: #22c55e; }
+.dot-red { background: #ef4444; }
+.dot-amber { background: #f59e0b; }
+
+.details-panel { min-height: 680px; }
+.details-body {
+  background: rgba(9, 16, 33, 0.65);
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 18px;
+  min-height: 560px;
+}
+.details-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.details-title h3 {
+  font-size: 1.35rem;
+  margin: 0;
+}
+.details-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.details-list div {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+.details-list dt {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.details-list dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.process-panel { margin-top: 22px; }
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+.process-card {
+  padding: 18px;
+  border-radius: 20px;
+}
+.process-card h3 { line-height: 1.3; }
+
+.street-label {
+  fill: #dbeafe;
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+.street-small-label {
+  fill: #94a3b8;
+  font-size: 11px;
+  text-anchor: middle;
+}
+.street-hitbox {
+  fill: transparent;
+  cursor: pointer;
+}
+.street-hitbox:hover,
+.street-hitbox.selected {
+  fill: rgba(96, 165, 250, 0.08);
+  stroke: rgba(96, 165, 250, 0.6);
+  stroke-width: 2;
+}
+.car-block {
+  fill: var(--car);
+  stroke: rgba(255,255,255,0.18);
+  stroke-width: 1;
+  rx: 4;
+}
+.car-block.peak {
+  fill: var(--car-strong);
+}
+.signal-light {
+  stroke: rgba(255,255,255,0.16);
+  stroke-width: 2;
+}
+.stop-badge {
+  fill: rgba(245, 158, 11, 0.18);
+  stroke: rgba(245, 158, 11, 0.8);
+  stroke-width: 1.5;
+  rx: 6;
+}
+.stop-text {
+  fill: #fcd34d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+}
+.intersection-outline {
+  fill: rgba(255,255,255,0.02);
+  stroke: rgba(255,255,255,0.08);
+  stroke-width: 2;
+}
+
 .badge {
   border-radius: 999px;
   padding: 6px 10px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 .badge.green { background: rgba(34, 197, 94, 0.18); color: #86efac; }
 .badge.red { background: rgba(239, 68, 68, 0.18); color: #fca5a5; }
 .badge.stop { background: rgba(245, 158, 11, 0.18); color: #fcd34d; }
+.badge.blue { background: rgba(96, 165, 250, 0.18); color: #bfdbfe; }
 
-.bar-wrap {
-  width: 100%;
-  height: 12px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.15);
-  overflow: hidden;
-  margin: 12px 0 10px;
-}
-.bar-fill {
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #22c55e, #f59e0b, #ef4444);
-}
 .hidden { display: none; }
 
-@media (max-width: 960px) {
+@media (max-width: 1100px) {
+  .scene-layout,
   .hero,
   .control-grid,
   .summary-grid,
-  .street-grid {
+  .process-grid {
     grid-template-columns: 1fr;
   }
+  .scene-panel,
+  .details-panel {
+    min-height: auto;
+  }
+  .details-body { min-height: auto; }
 }

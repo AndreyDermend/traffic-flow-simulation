@@ -10,17 +10,21 @@
     <div class="shell">
       <header class="hero">
         <div>
-          <p class="eyebrow">C engine • Python API • Browser visualizer</p>
+          <p class="eyebrow">Real traffic observations → C simulation → Python API → web visualizer</p>
           <h1>Traffic Flow Simulation</h1>
           <p class="lede">
-            A rebuilt traffic modeling project based on real-world street observations.
-            Run the simulation, inspect each tick, and explore congestion across a connected road network.
+            A rebuilt systems project based on real-world traffic observation. Instead of raw queue bars,
+            this view shows a simplified street scene so the browser reflects what the C simulation is
+            actually trying to model in real life.
           </p>
         </div>
         <div class="hero-card">
-          <div class="metric-label">Project focus</div>
-          <div class="metric-value">Queueing + routing + visualization</div>
-          <p class="muted">Designed to showcase systems programming, backend orchestration, and frontend playback.</p>
+          <div class="metric-label">Why this version matters</div>
+          <div class="metric-value">Understand the model visually</div>
+          <p class="muted">
+            Streets, cars, stop signs, and traffic lights are rendered directly from each simulation tick to make
+            congestion and movement easier to inspect.
+          </p>
         </div>
       </header>
 
@@ -45,13 +49,16 @@
 
       <section class="summary-grid" id="summaryGrid"></section>
 
-      <section class="panel playback-panel hidden" id="playbackPanel">
+      <section class="panel hidden" id="playbackPanel">
         <div class="playback-header">
           <div>
-            <h2>Playback</h2>
-            <p class="muted">Move through each simulation tick to inspect queue changes and light states.</p>
+            <h2>Simulation playback</h2>
+            <p class="muted">Scrub across ticks or press play to watch queues grow and clear over time.</p>
           </div>
-          <div class="tick-readout" id="tickReadout">Tick 1 / 60</div>
+          <div class="playback-actions">
+            <button id="playBtn" class="secondary-btn" type="button">Play</button>
+            <div class="tick-readout" id="tickReadout">Tick 1 / 60</div>
+          </div>
         </div>
         <label class="slider-wrap">
           <span>Tick</span>
@@ -59,14 +66,61 @@
         </label>
       </section>
 
-      <section class="panel hidden" id="networkPanel">
+      <section class="scene-layout hidden" id="sceneLayout">
+        <section class="panel scene-panel">
+          <div class="scene-header">
+            <div>
+              <h2>Street scene</h2>
+              <p class="muted">Click any road to inspect it. Cars are shown as queue blocks scaled to the current tick.</p>
+            </div>
+            <div class="scene-legend">
+              <span><i class="dot dot-green"></i> Green light</span>
+              <span><i class="dot dot-red"></i> Red light</span>
+              <span><i class="dot dot-amber"></i> Stop sign</span>
+            </div>
+          </div>
+          <div class="scene-wrap">
+            <svg id="networkScene" viewBox="0 0 900 620" role="img" aria-label="Traffic simulation scene"></svg>
+          </div>
+        </section>
+
+        <aside class="panel details-panel">
+          <h2>Selected street</h2>
+          <div id="streetDetails" class="details-body">
+            <p class="muted">Run a simulation to inspect a street.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel process-panel">
         <div class="playback-header">
           <div>
-            <h2>Network state</h2>
-            <p class="muted">Street-by-street queue fullness for the currently selected tick.</p>
+            <h2>Engineering process</h2>
+            <p class="muted">This is the story to present in your portfolio and interviews.</p>
           </div>
         </div>
-        <div class="street-grid" id="streetGrid"></div>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Real-world data collection</h3>
+            <p>Observed actual streets, estimated queue capacity, and counted vehicle flow over short windows to ground the simulation in something real.</p>
+          </article>
+          <article class="process-card">
+            <h3>2. C systems design</h3>
+            <p>Modeled streets, cars, queues, lights, and routing rules in C using structs, linked-list queues, timing logic, and probabilistic movement.</p>
+          </article>
+          <article class="process-card">
+            <h3>3. Team implementation</h3>
+            <p>Split the work across simulation functions such as initialization, queue movement, routing, timing, printing, and debugging, then integrated the pieces together.</p>
+          </article>
+          <article class="process-card">
+            <h3>4. Edge-case testing</h3>
+            <p>Tested low and high represented seconds, full queues, empty queues, red-light blocking, stop-sign streets, and destination-overflow behavior.</p>
+          </article>
+          <article class="process-card">
+            <h3>5. Full-stack rebuild</h3>
+            <p>Wrapped the compiled C engine in a Python API and rebuilt the output as a browser visualizer so the simulation is easier to run, explain, and show in a portfolio.</p>
+          </article>
+        </div>
       </section>
     </div>
 
