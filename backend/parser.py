@@ -16,3 +16,4 @@ def parse_simulation_output(raw_output: str) -> Dict[str, Any]:
     if not isinstance(payload["snapshots"], list) or not payload["snapshots"]:
         raise ValueError("Simulation output contains no snapshots")
     return payload
+    
