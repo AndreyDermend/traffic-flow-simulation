@@ -1,5 +1,13 @@
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
+// ─── Progress bar ────────────────────────────────────────────────────────────
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+  progressBar.style.transform = `scaleX(${pct})`;
+});
+
 const state = {
   payload: null,
   currentTick: 0,
@@ -156,7 +164,7 @@ tickSlider.addEventListener('input', () => {
 // ─── Utilities ────────────────────────────────────────────────────────────────
 function setStatus(msg, isErr = false) {
   statusEl.textContent = msg;
-  statusEl.style.color = isErr ? '#fca5a5' : '';
+  statusEl.style.color = isErr ? '#c5221f' : '';
 }
 
 function card(title, value) {
@@ -261,12 +269,12 @@ function renderScene(snap) {
   networkScene.innerHTML = '';
 
   // Canvas bg
-  networkScene.appendChild(el('rect', { x:0, y:0, width:900, height:620, fill:'#0f172a', rx:22 }));
+  networkScene.appendChild(el('rect', { x:0, y:0, width:900, height:620, fill:'#f8f9fa', rx:12 }));
 
   // Subtle district outline
   networkScene.appendChild(el('rect', {
-    x:50, y:55, width:800, height:510, rx:18,
-    fill:'rgba(255,255,255,0.012)', stroke:'rgba(255,255,255,0.045)', 'stroke-width':1.5,
+    x:50, y:55, width:800, height:510, rx:12,
+    fill:'rgba(0,0,0,0.01)', stroke:'rgba(0,0,0,0.06)', 'stroke-width':1,
   }));
 
   // Road bodies + labels
@@ -297,14 +305,14 @@ function drawRoadGroups() {
   intersections.forEach(j => {
     networkScene.appendChild(el('rect', {
       x:j.x, y:j.y, width:j.w, height:j.h, rx:6,
-      fill:'#4b5563', opacity:0.6,
+      fill:'#d1d5db', opacity:0.7,
     }));
   });
 
   ROAD_GROUPS.forEach(r => {
     networkScene.appendChild(el('rect', {
       x:r.x, y:r.y, width:r.w, height:r.h,
-      fill:'#374151', rx:10, opacity:0.95,
+      fill:'#e5e7eb', rx:10, opacity:0.95,
     }));
     networkScene.appendChild(el('text', {
       x:r.lx, y:r.ly,
@@ -317,7 +325,7 @@ function drawRoadGroups() {
 function drawSegmentLane(street, layout, isSelected) {
   networkScene.appendChild(el('rect', {
     x:layout.x, y:layout.y, width:layout.w, height:layout.h,
-    rx:4, fill:'rgba(255,255,255,0.10)',
+    rx:4, fill:'rgba(26,115,232,0.08)',
   }));
   const hb = el('rect', {
     x:layout.x-3, y:layout.y-3, width:layout.w+6, height:layout.h+6,
@@ -375,7 +383,7 @@ function drawSegmentLabel(street, layout, isSelected) {
     x: layout.lx, y: layout.ly,
     'text-anchor': anchor,
     class: 'street-small-label',
-    fill: isSelected ? '#dbeafe' : undefined,
+    fill: isSelected ? '#1a73e8' : undefined,
     'font-size': 10,
   }, street.name));
 
@@ -403,7 +411,7 @@ function drawControlMarker(street, layout) {
     return;
   }
 
-  const fill = street.light === 'GREEN' ? '#22c55e' : '#ef4444';
+  const fill = street.light === 'GREEN' ? '#137333' : '#c5221f';
   networkScene.appendChild(el('circle', { cx, cy, r:8, fill, class:'signal-light' }));
 }
 
