@@ -22,22 +22,23 @@ jobs:
 
       - name: Copy frontend files to portfolio demo directory
         run: |
-          mkdir -p portfolio/demo/traffic-sim
-          cp frontend/index.html portfolio/demo/traffic-sim/index.html
-          cp frontend/styles.css portfolio/demo/traffic-sim/styles.css
-          cp frontend/app.js portfolio/demo/traffic-sim/app.js
+          mkdir -p portfolio/public/demo/traffic-sim
+          cp frontend/index.html portfolio/public/demo/traffic-sim/index.html
+          cp frontend/styles.css portfolio/public/demo/traffic-sim/styles.css
+          cp frontend/app.js portfolio/public/demo/traffic-sim/app.js
+          cp frontend/sample_run.json portfolio/public/demo/traffic-sim/sample_run.json
 
       - name: Update nav links to relative paths for portfolio hosting
         run: |
-          sed -i 's|https://andreydermend.github.io/|/|g' portfolio/demo/traffic-sim/index.html
-          sed -i 's|https://andreydermend.github.io|/|g' portfolio/demo/traffic-sim/index.html
+          sed -i 's|https://andreydermend.github.io/|/|g' portfolio/public/demo/traffic-sim/index.html
+          sed -i 's|https://andreydermend.github.io|/|g' portfolio/public/demo/traffic-sim/index.html
 
       - name: Commit and push to portfolio repo
         run: |
           cd portfolio
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add demo/traffic-sim/
+          git add public/demo/traffic-sim/
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
