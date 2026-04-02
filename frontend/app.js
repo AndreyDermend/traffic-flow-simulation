@@ -198,9 +198,18 @@ async function runSimulation() {
   try {
     const q = new URLSearchParams({ represented_seconds: String(secs) });
     if (seed) q.set('seed', seed);
-    const res = await fetch(`${apiBase}/run-simulation?${q}`);
-    if (!res.ok) { const b = await res.json().catch(() => ({})); throw new Error(b.detail || 'Request failed'); }
-    state.payload = await res.json();
+    let data;
+    try {
+      const res = await fetch(`${apiBase}/run-simulation?${q}`);
+      if (!res.ok) { const b = await res.json().catch(() => ({})); throw new Error(b.detail || 'Request failed'); }
+      data = await res.json();
+    } catch (fetchErr) {
+      setStatus('API unavailable — loading sample data…');
+      const fallback = await fetch('sample_run.json');
+      if (!fallback.ok) throw fetchErr;
+      data = await fallback.json();
+    }
+    state.payload = data;
     state.currentTick = 0;
     state.selectedStreet =
       state.payload.summary.peak_congestion_street ||
